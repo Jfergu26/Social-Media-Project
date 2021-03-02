@@ -8,10 +8,17 @@ const Post = require('./models/Post');
 const { MONGODB } = require('./config.js');
 
 // ! means it is required so it has to return a string
+// https://www.apollographql.com/docs/tutorial/schema/
 
 const typeDefs = gql`
+    type Post{
+        id: ID!
+        body: String!
+        createdAt: String!
+        username: String!
+    }
     type Query{
-        sayHi: String! 
+        getPosts: [Post]
     }
 `
 // for each query,mutation, etc they need a corresponding resolver
@@ -19,7 +26,17 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        sayHi: () => 'Hello World'
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+        // async documentation
+        async getPosts(){
+            try{
+                const posts = await Post.find() // returns all posts if none is declared
+                return posts;
+            }catch(err){
+                throw new Error(err);
+            }
+
+        }
     }
 }
 
