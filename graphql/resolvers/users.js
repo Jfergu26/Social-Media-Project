@@ -2,9 +2,11 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { UserInputError } = require('apollo-server');
-
 const {validateRegisterInput, validateLoginInput} = require('../../util/validators')
 const { SECRET_KEY } = require('../../config');
+
+
+//1:00:00 https://www.youtube.com/watch?v=n1mdAPFq2Os
 
 function generateToken(user){
     return jwt.sign({
