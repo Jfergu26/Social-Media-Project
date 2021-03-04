@@ -10,15 +10,15 @@ const { SECRET_KEY } = require('../../config');
 
 function generateToken(user){
     return jwt.sign({
-        id: res.id,
-        email: res.email,
+        id: user.id,
+        email: user.email,
         username: user.username
     }, SECRET_KEY,{ expiresIn: '1h'});
 }
 
 module.exports = {
     Mutation: {
-        async login(_, {username, password}){
+        async login(_, {username, password }){
 
             const {errors, valid} = validateLoginInput(username,password);
             
@@ -43,7 +43,7 @@ module.exports = {
 
             const token = generateToken(user);
             return{
-                ...res._doc,
+                ...user._doc,
                 id:user._id,
                 token
             }
